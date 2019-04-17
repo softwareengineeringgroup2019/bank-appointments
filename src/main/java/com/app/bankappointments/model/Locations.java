@@ -11,7 +11,7 @@ import java.io.Serializable;
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Location implements Serializable {
+public class Locations implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -69,6 +69,13 @@ public class Location implements Serializable {
 
     public void setZipcode(int zip_code) {
         this.zip_code = zip_code;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Location[id=%d, address='%a', city='%c', state='%s', zip_code='%z']",
+                id, address, city, state, zip_code);
     }
 
 }

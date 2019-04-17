@@ -1,102 +1,73 @@
 import React, { Component } from 'react';
 import './App.css';
+import ReactDOM from 'react-dom';
 import {Button, ButtonDropdown, ButtonToolbar, Container, Row, Col} from 'reactstrap';
+
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCreditCard, faMoneyBillWave, faCar, faGraduationCap, faHome, faChartBar, faPiggyBank, faWallet, faBriefcase} from '@fortawesome/free-solid-svg-icons'
+
+
+function findCity() {
+    var resultElement = document.getElementById('findByCity');
+    var choosenCity = document.getElementById('chooseCity').value;
+    resultElement.innerHTML = '';
+
+    axios.get('http://localhost:8080/api/locations', {
+        params: {
+            city: choosenCity
+        }
+    })
+
+}
+
+
+
 class App extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            locations: []
+
+        };
+        // fetch('http://localhost:8080/api/locations')
+        //     .then(response => response.json())
+        //     .then(locations => (this.setState({locations})))
+    }
 
 
-
-    componentWillMount() {
-        axios.get('/services')
-            .then((res) => {
-                this.setState({services: res.data})
-
-            })
-        axios.get('api/locations')
+    componentDidMount() {
+        axios.get('http://localhost:8080/api/locations',{})
             .then((res) => {
                 this.setState({locations: res.data})
 
             })
 
-        axios.get('api/hours')
-            .then((res) => {
-                this.setState({hours: res.data})
-
-            })
     }
-
-
+    
 
 
   render() {
-    return (
-        <div style={{marginTop: "20px", marginBottom: "20px", backgroundColor:"#006948"}}>
+    return ( <div>
+            <ul>
+                {this.state.locations.map(loc => <li>
+                    <p>{loc.address}, {loc.city}, {loc.state}, {loc.zipcode}</p>
+                </li>)}
+            </ul>
 
-            <h1 style={{ maxWidth:"100%", height:"auto", width:"auto/9", paddingBottom: "20px", marginBottom:"20px", backgroundColor: "white",
-                display: "flex", justifyContent: "center"}} > <img src="commerce-bank-logo.png"/>
-            </h1>
-            <h2 style={{maxWidth: "100%", height:"auto", width:"auto", fontSize: "20px", paddingBottom: "20px", marginBottom: "20px", marginTop: "20px", marginLeft: "50px", marginRight: "50px",}}>
-                <Row>
-                    <Col sm={4} xs >
+            <div>
+                <form action = findCity>
 
-                    </Col>
-                    <Col sm={4} xs>
+                <input type="text" id="chooseCity"/><br/>
 
-                        <FontAwesomeIcon size='4x' color="white" onClick={this.handleClick} icon={faMoneyBillWave} />
-                        Checking
-                    </Col>
-                    <Col sm={4} xs>
-                        <FontAwesomeIcon size='4x' color="white" onClick={this.handleClick} icon={faCar} />
-                        Auto Loan
-                    </Col>
-                </Row>
+                <button className="btn btn-primary" onClick="findCity()">Get City</button>
+                </form>
+            </div>
 
-                <Row>
-                    <Col sm={4} xs>
-                        <div>
-                            <FontAwesomeIcon size='4x' color="white" onClick={this.handleClick} icon={faGraduationCap} />
-                            Student Loans
-                        </div>
-                    </Col>
-                    <Col sm={4} xs>
-                        <FontAwesomeIcon size='4x' color="white" onClick={this.handleClick} icon={faChartBar} />
-                        Home Equity
-                    </Col>
-                    <Col sm={4} xs>
-                        <FontAwesomeIcon size='4x' color="white" onClick={this.handleClick} icon={faHome} />
-                        Mortgage
-                    </Col>
-
-                </Row>
-
-                <Row>
-                    <Col sm={4} xs>
-                        <FontAwesomeIcon size='4x' color="white" onClick={this.handleClick} icon={faPiggyBank} />
-                        Savings
-                    </Col>
-                    <Col sm={4} xs>
-                        <FontAwesomeIcon size='4x' color="white" onClick={this.handleClick} icon={faBriefcase} />
-                        <h5>Investment Accounts</h5>
-                    </Col>
-                    <Col sm={4} xs>
-                        <FontAwesomeIcon size='4x' color="white" onClick={this.handleClick} icon={faWallet} />
-                        Student Banking
-                    </Col>
-                </Row>
-            </h2>
 
 
         </div>
-
-
-
-
-
-
-
 
 
 
