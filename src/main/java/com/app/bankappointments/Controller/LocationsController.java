@@ -1,65 +1,86 @@
 package com.app.bankappointments.Controller;
 
+import com.app.bankappointments.model.Locations;
 import com.app.bankappointments.repository.LocationRepository;
-import com.app.bankappointments.model.Location;
 import com.app.bankappointments.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/api")
 public class LocationsController {
 
+
     @Autowired
-    LocationRepository locationRepository;
+    LocationRepository locationsRepository;
+
+//    // Get All Locations
+//    @RequestMapping(value="city", method = RequestMethod.GET)
+//    public List<Locations> getAllLocations() {
+//
+//        return locationsRepository.findAll()
+//                .parallelStream()
+//                .filter(l -> l.getId() < 100).collect(Collectors.toList());
+//    }
 
     // Get All Locations
     @GetMapping("/locations")
-    public List<Location> getAllLocations() {
-        return locationRepository.findAll();
+    public List<Locations> getAllLocations() {
+
+        return locationsRepository.findAll()
+                .parallelStream()
+                .filter(l -> l.getId() < 100).collect(Collectors.toList());
     }
 
-    // Create a new Location
+    @GetMapping("/locations/cities")
+    public List<Object> getCities(HttpServletRequest httpServletRequest) {
+        return locationsRepository.findByCity("Grandview");
+    }
+
+    // Create a new Locations
     @PostMapping("/locations")
-    public Location createLocation(@Valid @RequestBody Location location) {
-        return locationRepository.save(location);
+    public Locations createLocation(@Valid @RequestBody Locations location) {
+        return locationsRepository.save(location);
     }
 
-    // Get a Single Location
+    // Get a Single Locations
     @GetMapping("/locations/{id}")
-    public Location getLocationById(@PathVariable(value="id") Long locationId) {
-        return locationRepository.findById(locationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Location", "id", locationId));
+    public Locations getLocationById(@PathVariable(value="id") Long locationId) {
+        return locationsRepository.findById(locationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Locations", "id", locationId));
     }
 
-    // Update a Location
+    // Update a Locations
     @PutMapping("/locations/{id}")
-    public Location updateLocation(@PathVariable(value="id") Long locationId,
-                                   @Valid @RequestBody Location locationDetails) {
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Location", "id", locationId));
+    public Locations updateLocation(@PathVariable(value="id") Long locationId,
+                                    @Valid @RequestBody Locations locationDetails) {
+        Locations location = locationsRepository.findById(locationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Locations", "id", locationId));
 
-//        NOTE: Uncomment these once getters and setters are created in Location class
+//        NOTE: Uncomment these once getters and setters are created in Locations class
         location.setAddress(locationDetails.getAddress());
         location.setCity(locationDetails.getCity());
         location.setState(locationDetails.getState());
         location.setZipcode(locationDetails.getZipcode());
 
-        Location updateLocation = locationRepository.save(location);
+        Locations updateLocation = locationsRepository.save(location);
         return updateLocation;
     }
 
-    // Delete a Location
+    // Delete a Locations
     @DeleteMapping("/locations/{id}")
     public ResponseEntity<?> deleteLocations(@PathVariable(value="id") Long locationId) {
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Location", "id", locationId));
+        Locations location = locationsRepository.findById(locationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Locations", "id", locationId));
 
-        locationRepository.delete(location);
+        locationsRepository.delete(location);
 
         return  ResponseEntity.ok().build();
 
