@@ -1,13 +1,13 @@
 package com.app.bankappointments.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.DayOfWeek;
-import java.util.Calendar;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "hours")
@@ -15,39 +15,24 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Hours implements Serializable {
+
+    @NotBlank
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank
-    private Date date;
-
-    @NotBlank
     private DayOfWeek day;
+
+    @NotBlank
+    private int open_time;
+
+    @NotBlank int close_time;
 
 
 //----------------------------------------------------------------------------------------------
     // Getters and Setters Methods:
 
-    public Long getId() {
-        return id;
-    }
+    public DayOfWeek getDayOfWeek() { return day; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public int getOpenTime() { return open_time;}
 
-    public Date getDate() {
-        return date;
-    }
-
-    public  void setDate(Date date) {
-        this.date = date;
-    }
-
-    public DayOfWeek getDay() { return day; }
-
-    public void setDay(DayOfWeek day) { this.day = day; }
 
 
 }

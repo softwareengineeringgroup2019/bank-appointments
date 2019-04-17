@@ -7,6 +7,24 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
+@SqlResultSetMapping(
+        name = "services",
+        entities = @EntityResult(
+                entityClass = Services.class,
+                fields = {
+                        @FieldResult(name = "id", column = "id"),
+                        @FieldResult(name = "checking", column = "checking"),
+                        @FieldResult(name = "savings", column = "savings"),
+                        @FieldResult(name = "student_banking", column = "student_banking"),
+                        @FieldResult(name = "auto_loan", column = "auto_loan"),
+                        @FieldResult(name = "home_equity", column = "home_equity"),
+                        @FieldResult(name = "mortgage", column = "mortgage"),
+                        @FieldResult(name = "student_loans", column = "student_loans"),
+                        @FieldResult(name = "credit_card", column = "credit_card"),
+                        @FieldResult(name = "investment_account", column = "investment_account")}))
+
+
+
 @Table(name = "services")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
@@ -16,32 +34,41 @@ public class Services implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private Boolean checking;
-
-    @NotBlank
-    private Boolean savings;
-
-    @NotBlank
-    private Boolean student_banking;
-
-    @NotBlank
+//    @NotBlank
+//    @Column(name = "auto_loan")
     private Boolean auto_loan;
 
-    @NotBlank
-    private Boolean home_equity;
+//    @NotBlank
+//    @Column(name = "checking")
+    private Boolean checking;
 
-    @NotBlank
-    private Boolean mortgage;
-
-    @NotBlank
-    private Boolean student_loans;
-
-    @NotBlank
+//    @NotBlank
+//    @Column(name = "credit_card")
     private Boolean credit_card;
 
-    @NotBlank
+//    @NotBlank
+//    @Column(name = "home_equity")
+    private Boolean home_equity;
+
+//    @NotBlank
+//    @Column(name = "investment_account")
     private Boolean investment_account;
+
+//    @NotBlank
+//    @Column(name = "mortgage")
+    private Boolean mortgage;
+
+//    @NotBlank
+//    @Column(name = "savings")
+    private Boolean savings;
+
+//    @NotBlank
+//    @Column(name = "student_banking")
+    private Boolean student_banking;
+
+//    @NotBlank
+//    @Column(name = "student_loans")
+    private Boolean student_loans;
 
 
     //    ----------------------------------------------------------------------------------------------
@@ -125,6 +152,34 @@ public class Services implements Serializable {
     public void setInvestmentAccount(Boolean offered) {
         this.investment_account = offered;
     }
+
+//    public boolean hasServices(Services services){
+//        if(services.getChecking()){
+//            if(!this.getChecking())
+//                return false;
+//        }
+//        if(services.getChecking()){
+//            if(!this.getChecking())
+//                return false;
+//        }
+//        if(services.getChecking()){
+//            if(!this.getChecking())
+//                return false;
+//        }
+//        if(services.getChecking()){
+//            if(!this.getChecking())
+//                return false;
+//        }
+//        if(services.getChecking()){
+//            if(!this.getChecking())
+//                return false;
+//        }
+//        if(services.getChecking()){
+//            if(!this.getChecking())
+//                return false;
+//        }
+//        return true;
+//    }
 }
 
 
