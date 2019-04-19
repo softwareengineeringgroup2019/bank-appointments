@@ -2,12 +2,30 @@ import React, { Component } from 'react';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCreditCard, faMoneyBillWave, faCar, faGraduationCap, faHome, faChartBar, faPiggyBank, faWallet, faBriefcase} from '@fortawesome/free-solid-svg-icons'
 import './index.css'
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import ServiceButtons from './components/ServiceButtons';
 import MapsAppointment from './components/MapsAppointment';
 import UserInformation from './components/UserInformation';
 import ReviewAppointment from './components/ReviewAppointment';
+
+
+function findCity() {
+    var resultElement = document.getElementById('findByCity');
+    var choosenCity = document.getElementById('chooseCity').value;
+    resultElement.innerHTML = '';
+
+    axios.get('http://localhost:8080/api/locations', {
+        params: {
+            city: choosenCity
+        }
+    })
+
+}
+
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class App extends Component {
 
