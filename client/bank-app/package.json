@@ -19,6 +19,7 @@
     "react-dom": "^16.8.6",
     "react-google-maps": "^9.4.5",
     "react-native": "^0.59.4",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "^2.1.8",
     "reactstrap": "^7.1.0",
     "recompose": "^0.30.0"
