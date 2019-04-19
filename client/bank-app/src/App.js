@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCreditCard, faMoneyBillWave, faCar, faGraduationCap, faHome, faChartBar, faPiggyBank, faWallet, faBriefcase} from '@fortawesome/free-solid-svg-icons'
 
 
-/*function findCity() {
+function findCity() {
     var resultElement = document.getElementById('findByCity');
     var choosenCity = document.getElementById('chooseCity').value;
     resultElement.innerHTML = '';
@@ -18,7 +18,7 @@ import { faCreditCard, faMoneyBillWave, faCar, faGraduationCap, faHome, faChartB
         }
     })
 
-}*/
+}
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
