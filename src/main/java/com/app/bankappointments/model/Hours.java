@@ -1,7 +1,7 @@
 package com.app.bankappointments.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.xml.internal.bind.v2.model.core.ID;
+/*import com.sun.xml.internal.bind.v2.model.core.ID;*/
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
