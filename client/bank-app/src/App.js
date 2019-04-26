@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import ReactDOM from 'react-dom';
-import {Button, ButtonDropdown, ButtonToolbar, Container, Row, Col} from 'reactstrap';
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCreditCard, faMoneyBillWave, faCar, faGraduationCap, faHome, faChartBar, faPiggyBank, faWallet, faBriefcase} from '@fortawesome/free-solid-svg-icons'
+import './index.css'
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import ServiceButtons from './components/ServiceButtons';
+import MapsAppointment from './components/MapsAppointment';
+import UserInformation from './components/UserInformation';
+import ReviewAppointment from './components/ReviewAppointment';
 
 
 function findCity() {
@@ -21,58 +25,84 @@ function findCity() {
 
 }
 
-
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class App extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            locations: []
-
-        };
-        // fetch('http://localhost:8080/api/locations')
-        //     .then(response => response.json())
-        //     .then(locations => (this.setState({locations})))
+    constructor() {
+        super();
+        this.state = {showMessage: false }
     }
 
+    showButton = (bool) => {
+        this.setState({
+            showButton: bool
+        });
+    }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/api/locations',{})
+        this.delayedShowMarker()
+    }
+
+    delayedShowMarker = () => {
+        setTimeout(() => {
+            this.setState({ isMarkerShown: true })
+        }, 3000)
+    }
+
+    componentWillMount() {
+        axios.get('api/services')
+            .then((res) => {
+                this.setState({services: res.data})
+
+            })
+        axios.get('api/locations')
             .then((res) => {
                 this.setState({locations: res.data})
 
             })
 
-    }
-    
+        axios.get('api/hours')
+            .then((res) => {
+                this.setState({hours: res.data})
 
+            })
+    }
+
+    static defaultProps = {
+        center: {
+            lat: 38.77292942970709,
+            lng: -93.73864749446513
+        },
+        zoom: 11
+    };
 
   render() {
-    return ( <div>
-            <ul>
-                {this.state.locations.map(loc => <li>
-                    <p>{loc.address}, {loc.city}, {loc.state}, {loc.zipcode}</p>
-                </li>)}
-            </ul>
+    return (
+        <Router>
+            <div className="App">
+                <div style={{marginTop: "20px",
+                    margin: "3%",
+                }}>
+                    <h1 style={{ maxWidth:"100%",
+                        height:"auto",
+                        width:"auto/9",
+                        paddingBottom: "20px",
+                        marginBottom:"20px",
+                        backgroundColor: "white",
+                        display: "flex",
+                        justifyContent: "center"}} >
+                        <img src="commerce-bank-logo.png"/>
+                    </h1>
+                </div>
+                    <Route exact path="/" component={ServiceButtons} />
+                    <Route exact path="/MapsAppointment" component={MapsAppointment} />
+                    <Route exact path="/UserInformation" component={UserInformation} />
+                    <Route exact path="/ReviewAppointment" component={ReviewAppointment} />
 
-            <div>
-                <form action = findCity>
 
-                <input type="text" id="chooseCity"/><br/>
-
-                <button className="btn btn-primary" onClick="findCity()">Get City</button>
-                </form>
             </div>
-
-
-
-        </div>
-
-
-
-
-
+        </Router>
 
     );
   }

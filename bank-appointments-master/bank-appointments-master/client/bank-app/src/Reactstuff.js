@@ -5,7 +5,7 @@ import {
     faGraduationCap,
     faHome, faMoneyBillWave,
     faPiggyBank,
-    faWallet,
+    faWallet
 } from "@fortawesome/free-solid-svg-icons/index";
 
 <div style={{marginTop: "20px", marginBottom: "20px", backgroundColor:"#006948"}}>
