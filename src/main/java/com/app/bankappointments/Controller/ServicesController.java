@@ -1,5 +1,7 @@
 package com.app.bankappointments.Controller;
 
+import com.app.bankappointments.model.Locations;
+import com.app.bankappointments.repository.LocationRepository;
 import com.app.bankappointments.repository.ServicesRepository;
 import com.app.bankappointments.model.Services;
 import com.app.bankappointments.exception.ResourceNotFoundException;
@@ -7,7 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import javax.xml.stream.Location;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.lang.Boolean.TRUE;
+import static java.lang.Math.E;
 
 
 @RestController
@@ -15,12 +22,24 @@ import java.util.List;
 public class ServicesController {
 
     @Autowired
-    ServicesRepository servicesRepository;
+    private ServicesRepository servicesRepository;
+
+    @Autowired
+    private LocationRepository locationsRepository;
+
+    @Autowired
+    public ServicesController(ServicesRepository servicesRepository) {
+        this.servicesRepository = servicesRepository;
+    }
 
     // Get All Locations
     @GetMapping("/services")
-    public List<Services> getAllLocations() {
-        return servicesRepository.findAll();
+    public List<Services> getAllServices(Boolean checking) {
+        return servicesRepository.findAll()
+                .parallelStream().filter(s -> s.getChecking() == true && s.getAutoLoan() == true &&
+                        s.getInvestmentAccount() == true && s.getHomeEquity() == true && s.getStudentLoans() == true &&
+                        s.getSavings() == true && s.getCreditCard() == true && s.getMortgage() == true &&
+                        s.getStudentBanking() == true).collect(Collectors.toList());
     }
 
     // Create a new Service
@@ -35,6 +54,7 @@ public class ServicesController {
         return servicesRepository.findById(servicesId)
                 .orElseThrow(() -> new ResourceNotFoundException("Services", "id", servicesId));
     }
+
 
     // Update a Service
     @PutMapping("/services/{id}")
@@ -58,7 +78,7 @@ public class ServicesController {
         return updateServices;
     }
 
-    // Delete a Location
+    // Delete a Locations
     @DeleteMapping("/services/{id}")
     public ResponseEntity<?> deleteServices(@PathVariable(value="id") Long servicesId) {
         Services services = servicesRepository.findById(servicesId)
