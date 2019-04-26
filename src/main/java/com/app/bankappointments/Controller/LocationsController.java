@@ -21,8 +21,23 @@ public class LocationsController {
     @Autowired
     LocationRepository locationsRepository;
 
+    @RequestMapping(value="/search/{city}", method = RequestMethod.POST)
+    public @ResponseBody
+    List<Object> getCity(@PathVariable("city") String city) {
+        return locationsRepository.findByCity(city);
+    }
+
+    // Get All Locations
+    @GetMapping("/locations")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<Locations> getAllLocations() {
+        return locationsRepository.findAll();
+//                .parallelStream()
+//                .filter(l -> l.getCity().equals("belton")).collect(Collectors.toList());
+    }
+
 //    // Get All Locations
-//    @RequestMapping(value="city", method = RequestMethod.GET)
+//    @GetMapping("/locations")
 //    public List<Locations> getAllLocations() {
 //
 //        return locationsRepository.findAll()
@@ -30,18 +45,10 @@ public class LocationsController {
 //                .filter(l -> l.getId() < 100).collect(Collectors.toList());
 //    }
 
-    // Get All Locations
-    @GetMapping("/locations")
-    public List<Locations> getAllLocations() {
-
-        return locationsRepository.findAll()
-                .parallelStream()
-                .filter(l -> l.getId() < 100).collect(Collectors.toList());
-    }
-
     @GetMapping("/locations/cities")
     public List<Object> getCities(HttpServletRequest httpServletRequest) {
-        return locationsRepository.findByCity("Grandview");
+        String choosenCity ="";
+        return locationsRepository.findByCity(choosenCity);
     }
 
     // Create a new Locations

@@ -34,39 +34,39 @@ public class Services implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "auto_loan")
     private Boolean auto_loan;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "checking")
     private Boolean checking;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "credit_card")
     private Boolean credit_card;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "home_equity")
     private Boolean home_equity;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "investment_account")
     private Boolean investment_account;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "mortgage")
     private Boolean mortgage;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "savings")
     private Boolean savings;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "student_banking")
     private Boolean student_banking;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Column(name = "student_loans")
     private Boolean student_loans;
 
@@ -145,6 +145,7 @@ public class Services implements Serializable {
     public void setCreditCard(Boolean offered) {
         this.credit_card = offered;
     }
+
     public Boolean getInvestmentAccount() {
         return investment_account;
     }
@@ -152,6 +153,28 @@ public class Services implements Serializable {
     public void setInvestmentAccount(Boolean offered) {
         this.investment_account = offered;
     }
+
+    public boolean hasMortgage(Boolean mortgage) {
+        return !mortgage || mortgage == this.mortgage;
+    }
+
+
+
+
+    public boolean hasStudentLoans(Boolean student_loans) {
+        if (student_loans) {
+            if (student_loans == this.student_loans) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+
 
 //    public boolean hasServices(Services services){
 //        if(services.getChecking()){
@@ -180,7 +203,8 @@ public class Services implements Serializable {
 //        }
 //        return true;
 //    }
-}
+
+    }
 
 
 
