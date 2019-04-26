@@ -16,8 +16,6 @@ class ServiceButtons extends Component {
         };
     }
 
-    onS
-
     onChange(value, event) {
         this.setState({ value });
     }
