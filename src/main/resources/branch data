@@ -1,0 +1,10 @@
+INSERT INTO branch VALUES (1, '804 E 12th St', 'Kansas City', 'MO', '64106', 1, 1, 1, 1, 1, 1, 1, 1, 1, '', '');
+INSERT INTO branch VALUES (2, '922 Walnut St', 'Kansas City', 'MO', '64106', 1, 1, 1, 1, 1, 1, 1, 1, 0, '', '');
+INSERT INTO branch VALUES (3, '118 W 47th St', 'Kansas City', 'MO', '64112', 1, 1, 1, 1, 1, 1, 0, 0, 1, '', '');
+INSERT INTO branch VALUES (4, '1301 Locust St', 'Harrisonville', 'MO', '64701', 1, 1, 1, 1, 1, 1, 1, 1, 1, '', '');
+INSERT INTO branch VALUES (5, '503 NW Hwy 7', 'Blue Springs', 'MO', '64014', 1, 1, 1, 0, 1, 1, 1, 1, 1, '', '');
+INSERT INTO branch VALUES (6, '301 SE MO-291', 'Lees Summit', 'MO', '64063', 1, 1, 1, 1, 1, 1, 1, 1, 1, '38.903094', '-94.388468');
+INSERT INTO branch VALUES (7, '809 MO-150 Hwy', 'Lees Summit', 'MO', '64082', 1, 1, 1, 1, 1, 0, 1, 1, 1, '', '');
+INSERT INTO branch VALUES (8, '750 NE Woods Chapel Rd', 'Lees Summit', 'MO', '64064', 1, 1, 1, 1, 1, 1, 1, 1, 1, '', '');
+INSERT INTO branch VALUES (9, '2915 S Noland Rd', 'Independence', 'MO', '64055', 1, 1, 1, 1, 0, 1, 1, 1, 0, '', '');
+INSERT INTO branch VALUES (10, '8200 E 171st St', 'Belton', 'MO', '64012', 1, 1, 1, 1, 1, 1, 0, 0, 0, '', '');

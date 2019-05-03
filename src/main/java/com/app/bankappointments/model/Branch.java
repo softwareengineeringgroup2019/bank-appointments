@@ -7,68 +7,60 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
-@SqlResultSetMapping(
-        name = "services",
-        entities = @EntityResult(
-                entityClass = Services.class,
-                fields = {
-                        @FieldResult(name = "id", column = "id"),
-                        @FieldResult(name = "checking", column = "checking"),
-                        @FieldResult(name = "savings", column = "savings"),
-                        @FieldResult(name = "student_banking", column = "student_banking"),
-                        @FieldResult(name = "auto_loan", column = "auto_loan"),
-                        @FieldResult(name = "home_equity", column = "home_equity"),
-                        @FieldResult(name = "mortgage", column = "mortgage"),
-                        @FieldResult(name = "student_loans", column = "student_loans"),
-                        @FieldResult(name = "credit_card", column = "credit_card"),
-                        @FieldResult(name = "investment_account", column = "investment_account")}))
-
-
-
-@Table(name = "services")
+@Table(name = "branch")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Services implements Serializable {
+public class Branch implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //    @NotBlank
-//    @Column(name = "auto_loan")
+    @NotBlank
+    private String address;
+
+    @NotBlank
+    private String city;
+
+    @NotBlank
+    private String state;
+
+    @NotBlank
+    private String zip_code;
+
+    @NotBlank
     private Boolean auto_loan;
 
-    //    @NotBlank
-//    @Column(name = "checking")
+    @NotBlank
     private Boolean checking;
 
-    //    @NotBlank
-//    @Column(name = "credit_card")
+    @NotBlank
     private Boolean credit_card;
 
-    //    @NotBlank
-//    @Column(name = "home_equity")
+    @NotBlank
     private Boolean home_equity;
 
-    //    @NotBlank
-//    @Column(name = "investment_account")
+    @NotBlank
     private Boolean investment_account;
 
-    //    @NotBlank
-//    @Column(name = "mortgage")
+    @NotBlank
     private Boolean mortgage;
 
-    //    @NotBlank
-//    @Column(name = "savings")
+    @NotBlank
     private Boolean savings;
 
-    //    @NotBlank
-//    @Column(name = "student_banking")
+    @NotBlank
     private Boolean student_banking;
 
-    //    @NotBlank
-//    @Column(name = "student_loans")
+    @NotBlank
     private Boolean student_loans;
+
+    @NotBlank
+    private String latitude;
+
+    @NotBlank
+    private String longitude;
+
 
 
     //    ----------------------------------------------------------------------------------------------
@@ -80,6 +72,38 @@ public class Services implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipcode() {
+        return zip_code;
+    }
+
+    public void setZipcode(String zip_code) {
+        this.zip_code = zip_code;
     }
 
     public Boolean getChecking() {
@@ -154,6 +178,22 @@ public class Services implements Serializable {
         this.investment_account = offered;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
 
     public boolean hasMortgage(Boolean mortgage) {
         return !mortgage || mortgage == this.mortgage;
@@ -167,9 +207,7 @@ public class Services implements Serializable {
         return !checking || checking == this.checking;
     }
 
-    public boolean hasStudentBanking(Boolean student_banking) {
-        return  !student_banking || student_banking == this.student_banking;
-    }
+    public boolean hasStudentBanking(Boolean student_banking) { return  !student_banking || student_banking == this.student_banking; }
 
     public boolean hasAutoLoan(Boolean auto_loan) {
         return !auto_loan || auto_loan == this.auto_loan;
@@ -183,10 +221,7 @@ public class Services implements Serializable {
         return !home_equity || home_equity == this.home_equity;
     }
 
-    public boolean hasInvestmentAccount(boolean investment_account) {
-        return !investment_account || investment_account == this.investment_account;
-    }
-
+    public boolean hasInvestmentAccount(boolean investment_account) { return !investment_account || investment_account == this.investment_account; }
 
     public boolean hasStudentLoans(Boolean student_loans) {
         if (student_loans) {
@@ -205,7 +240,7 @@ public class Services implements Serializable {
 
 
 
-    }
+}
 
 
 

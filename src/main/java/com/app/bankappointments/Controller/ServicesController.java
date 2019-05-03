@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.xml.stream.Location;
+import java.lang.invoke.SerializedLambda;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,26 +34,60 @@ public class ServicesController {
         this.servicesRepository = servicesRepository;
     }
 
-    @GetMapping("/services")
-    @CrossOrigin(origins = "http://localhost:3000")
-    @ResponseBody
-    public List<Services> getServices(@RequestParam String mortgage, String studentLoans, String checking) {
-        Boolean selectedMortgage = Boolean.parseBoolean(mortgage);
-        Boolean selectedStudentLoans = Boolean.parseBoolean(studentLoans);
-        System.out.println("mortgage: " + mortgage);
-        System.out.println("studentLoans: " + studentLoans);
-        System.out.println("checking: " + checking);
-        return servicesRepository.findAll().parallelStream().filter(s -> s.hasMortgage(selectedMortgage) &&
-                s.hasStudentLoans(selectedStudentLoans)).collect(Collectors.toList());
+//    @GetMapping("/services")
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @ResponseBody
+//    public List<Locations> getServices(
+//            @RequestParam String mortgage, String studentLoans, String checking, String savings, String autoLoan,
+//            String studentBanking, String creditCard, String investmentAccount, String homeEquity) {
+
+//        Boolean selectedMortgage = Boolean.parseBoolean(mortgage);
+//        Boolean selectedStudentLoans = Boolean.parseBoolean(studentLoans);
+//        Boolean selectedChecking = Boolean.parseBoolean(checking);
+//        Boolean selectedSavings = Boolean.parseBoolean(savings);
+//        Boolean selectedAutoLoan = Boolean.parseBoolean(autoLoan);
+//        Boolean selectedStudentBanking = Boolean.parseBoolean(studentBanking);
+//        Boolean selectedCreditCard = Boolean.parseBoolean(creditCard);
+//        Boolean selectedInvestmentAccount = Boolean.parseBoolean(investmentAccount);
+//        Boolean selectedHomeEquity = Boolean.parseBoolean(homeEquity);
+//
+////        System.out.println("mortgage: " + mortgage);
+////        System.out.println("studentLoans: " + studentLoans);
+////        System.out.println("checking: " + checking);
+////        System.out.println("savings: " + savings);
+////        System.out.println("autoLoan: " + autoLoan);
+////        System.out.println("studentBanking: " + studentBanking);
+////        System.out.println("creditCard: " + creditCard);
+////        System.out.println("investmentAccount: " + investmentAccount);
+////        System.out.println("homeEquity: " + homeEquity);
+//
+//        List<Services> selectedServices = servicesRepository.findAll().parallelStream().filter(s -> s.hasMortgage(selectedMortgage) &&
+//                s.hasStudentLoans(selectedStudentLoans) && s.hasChecking(selectedChecking) &&
+//                s.hasSavings(selectedSavings) && s.hasAutoLoan(selectedAutoLoan) &&
+//                s.hasStudentBanking(selectedStudentBanking) && s.hasCreditCard(selectedCreditCard) &&
+//                s.hasInvestmentAccount(selectedInvestmentAccount) && s.hasHomeEquity(selectedHomeEquity))
+//                .collect(Collectors.toList());
+//
+//        List<Locations> availableLocations = locationsRepository.findAll().parallelStream()
+//                .filter(l -> l.getId() == selectedServices.parallelStream().findAny().get().getId()).collect(Collectors.toList());
+//
+//
+//
+//        return availableLocations;
 
 
-
+        //WORKING FUNCTION
+//        return servicesRepository.findAll().parallelStream().filter(s -> s.hasMortgage(selectedMortgage) &&
+//                s.hasStudentLoans(selectedStudentLoans) && s.hasChecking(selectedChecking) &&
+//                s.hasSavings(selectedSavings) && s.hasAutoLoan(selectedAutoLoan) &&
+//                s.hasStudentBanking(selectedStudentBanking) && s.hasCreditCard(selectedCreditCard) &&
+//                s.hasInvestmentAccount(selectedInvestmentAccount) && s.hasHomeEquity(selectedHomeEquity))
+//                .collect(Collectors.toList());
 
 //                .filter(s -> s.getMortgage().equals(Boolean.parseBoolean(mortgage))
 //                        && s.getStudentLoans().equals(Boolean.parseBoolean(studentLoans)))
 //                .collect(Collectors.toList());
-
-    }
+//    }
 
 
 
